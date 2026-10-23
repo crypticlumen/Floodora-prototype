@@ -72,15 +72,10 @@ def dashboard() -> FileResponse:
     return FileResponse(FRONTEND_DIR / "index.html")
 
 
-@app.get("/", summary="API service status", tags=["System"])
-def root() -> Dict[str, Any]:
-    return {
-        "name": "Floodora Backend API",
-        "version": APP_METADATA["version"],
-        "status": "online",
-        "dashboard": "/dashboard",
-        "documentation": "/docs",
-    }
+@app.get("/", include_in_schema=False)
+def root() -> FileResponse:
+    """Open the operator dashboard at the deployment's main URL."""
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.get("/api", summary="API service status", tags=["System"])
