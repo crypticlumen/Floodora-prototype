@@ -1,2 +1,16 @@
+[project]
+name = "floodora-prototype"
+version = "1.0.0"
+description = "Floodora flood-risk monitoring dashboard and API"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.2.0",
+    "python-multipart>=0.0.9",
+    "python-dotenv>=1.0.1",
+]
+
 [tool.vercel]
 entrypoint = "main:app"
