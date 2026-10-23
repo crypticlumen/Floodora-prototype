@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102624">
+  <meta name="description" content="Floodora smart drainage monitoring and early flood-risk awareness prototype.">
+  <title>Floodora | India live weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Floodora home"><span class="brand-mark">F</span><span>floodora<span class="brand-dot">.</span><small>FIELD OPERATIONS</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">◫</span>Overview</a>
+        <a class="nav-link" href="#locations"><span class="nav-icon">⌖</span>Drainage sites</a>
+        <a class="nav-link" href="#simulator"><span class="nav-icon">↗</span>Scenario simulator</a>
+        <a class="nav-link" href="#history"><span class="nav-icon">◷</span>Assessment history</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="boundary-card"><span class="boundary-icon">✳</span><div><b>Decision support</b><p>Review conditions with local operating procedures.</p></div></div>
+        <a class="api-link" href="/docs" target="_blank" rel="noreferrer">API documentation <span>↗</span></a>
+        <div class="profile"><span class="avatar">FO</span><span><b>Field operator</b><small>Prototype workspace</small></span><span class="profile-menu">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div class="breadcrumb">Floodora <span>/</span> <b>India weather</b></div><div class="topbar-right"><span class="connection"><i id="connection-dot"></i><span id="connection-label">Connecting</span></span><span class="top-divider"></span><span class="date-label" id="today-label"></span><button class="icon-button" id="refresh-button" aria-label="Refresh data" title="Refresh data">↻</button></div></header>
+      <div class="page-wrap">
+        <section class="intro" id="overview">
+          <div><div class="eyebrow"><span class="eyebrow-mark">◉</span> <span id="network-context">INDIA · LIVE WEATHER</span></div><h1 id="dashboard-title">Local weather dashboard</h1><p class="intro-copy" id="dashboard-description">Enter an Indian PIN code, city, or district to load current local weather.</p></div>
+          <div class="intro-actions"><span class="data-badge" id="network-data-badge"><span></span> WEATHER DATA ONLY · NO DRAIN SENSORS</span><button class="button button-dark" id="run-all-button"><span>▶</span> Assess all sites</button></div>
+        </section>
+
+        <section class="summary-grid" aria-label="Network summary">
+          <article class="summary-card summary-total"><div class="summary-top"><span id="locations-summary-label">LOCATION</span><span class="summary-icon">⌖</span></div><div class="summary-value" id="site-count">—</div><div class="summary-foot" id="locations-summary-foot">Waiting for a location search</div></article>
+          <article class="summary-card"><div class="summary-top"><span id="risk-summary-label">CONDITION</span><span class="summary-icon amber">⌁</span></div><div class="summary-value" id="high-count">—</div><div class="summary-foot" id="risk-summary-foot">Current weather model</div></article>
+          <article class="summary-card"><div class="summary-top"><span id="average-summary-label">RAIN · LAST INTERVAL</span><span class="summary-icon teal">◌</span></div><div class="summary-value"><span id="average-score">—</span><small id="weather-summary-unit">mm</small></div><div class="summary-foot" id="average-summary-foot">Recent precipitation estimate</div></article>
+          <article class="summary-card"><div class="summary-top"><span id="status-summary-label">DATA STATUS</span><span class="summary-icon green">✳</span></div><div class="summary-value engine-value"><span class="status-pip green-pip"></span><span id="engine-status">Ready</span></div><div class="summary-foot" id="status-summary-foot">Open-Meteo model feed</div></article>
+        </section>
+
+        <section class="panel india-weather" id="india-weather">
+          <div class="panel-heading"><div><div class="eyebrow muted">INDIA-WIDE WEATHER <span class="small-live"><i></i> MODEL DATA</span></div><h2>Choose a location</h2><p class="panel-description">Search an Indian PIN code, city, or district. The dashboard will use weather data for the selected area.</p></div><span class="weather-source">Open-Meteo · CC BY 4.0</span></div>
+          <form class="city-search" id="city-search-form"><label class="sr-only" for="city-search-input">Search Indian city, district, or PIN code</label><input id="city-search-input" class="text-input" type="search" minlength="2" maxlength="80" placeholder="Try Chennai, Guwahati, Leh, or a PIN code" required><button class="button button-teal" id="city-search-button" type="submit">Search India <span>⌕</span></button></form>
+          <div class="city-search-results" id="city-search-results"><span class="empty-note">Search anywhere in India to check current weather and recent rainfall estimates.</span></div>
+          <div class="city-weather-result" id="city-weather-result" aria-live="polite"></div>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel sites-panel" id="locations">
+            <div class="panel-heading"><div><div class="eyebrow muted">SELECTED PIN <span class="small-live"><i></i> LOCATION DATA</span></div><h2>Drainage site</h2></div><button class="text-button" id="view-sites-button">Refresh data <span>↗</span></button></div>
+            <div class="sites-table-wrap"><table class="sites-table"><thead><tr><th>LOCATION</th><th>WATER LEVEL</th><th>RAINFALL</th><th>BLOCKAGE</th><th>RISK</th></tr></thead><tbody id="sites-body"><tr><td colspan="5" class="loading-row">Loading monitored sites…</td></tr></tbody></table></div>
+            <div class="panel-foot"><span id="site-footnote">Weather is live model data. Drain readings are required for risk scoring.</span><span class="foot-arrow">→</span></div>
+          </article>
+
+          <article class="panel detail-panel">
+            <div class="panel-heading detail-heading"><div><div class="eyebrow muted">LIVE LOCATION WEATHER</div><h2 id="detail-title">No location selected</h2><p class="detail-subtitle" id="detail-subtitle">Search a PIN code, city, or district to load local conditions.</p></div><span class="data-badge small-badge"><span></span><span id="detail-mode">WAITING</span></span></div>
+            <div class="drain-inputs"><div class="section-label">LOCAL DRAIN READINGS · SENSOR FEED OR FIELD INPUT</div><p class="drain-input-note">The dashboard checks your configured sensor REST feed for this PIN. Sensor-provided values fill in automatically; any required values your sensor does not report must be entered.</p><form id="drain-reading-form" class="drain-reading-form"><label>Water level (cm)<input id="drain-water" class="text-input" type="number" min="0" step="0.1" required></label><label>Drain capacity (cm)<input id="drain-capacity" class="text-input" type="number" min="0.1" step="0.1" required></label><label>Blockage (%)<input id="drain-blockage" class="text-input" type="number" min="0" max="100" step="1" required></label><label>Flow drop (%)<input id="drain-flow" class="text-input" type="number" min="0" max="100" step="1" required></label><button class="button button-teal" type="submit">Assess these readings <span>→</span></button></form><div class="drain-reading-status" id="drain-reading-status" aria-live="polite">Waiting for local drain readings. No sample drain values are used.</div></div>
+            <div class="risk-overview"><div class="score-block"><div class="score-number" id="risk-score">—</div><div class="score-caption">RISK SCORE <span>/ 100</span></div></div><div class="risk-label-wrap"><span class="risk-pill risk-unknown" id="risk-level">AWAITING READINGS</span><p id="quality-status">Enter local drain readings to assess this location.</p></div></div>
+            <div class="risk-meter"><div class="meter-track"><div class="meter-fill" id="risk-meter-fill"></div></div><div class="meter-labels"><span>LOW</span><span>MEDIUM</span><span>HIGH</span><span>CRITICAL</span></div></div>
+            <div class="weather-card" id="site-weather-card"><div class="weather-card-head"><div><div class="section-label">LOCAL WEATHER · LIVE MODEL ESTIMATE</div><div class="weather-condition" id="site-weather-condition">Search a PIN code, city, or district.</div></div><div class="weather-card-tools"><span class="weather-live-pill"><i></i> LIVE</span><button class="weather-refresh" id="site-weather-refresh" type="button" aria-label="Refresh local weather" title="Refresh local weather">↻</button></div></div><div class="weather-metrics"><div><span>PRECIPITATION · LAST INTERVAL</span><b id="site-weather-rain">—</b></div><div><span>RAIN</span><b id="site-weather-rain-only">—</b></div><div><span>SHOWERS</span><b id="site-weather-showers">—</b></div><div><span>TEMPERATURE</span><b id="site-weather-temp">—</b></div><div><span>HUMIDITY</span><b id="site-weather-humidity">—</b></div><div><span>WIND SPEED</span><b id="site-weather-wind">—</b></div><div><span>WIND DIRECTION</span><b id="site-weather-wind-direction">—</b></div><div><span>WIND GUSTS</span><b id="site-weather-wind-gusts">—</b></div></div><div class="weather-card-foot"><span id="site-weather-time">Weather data loading</span><button class="text-button" id="apply-rain-button" disabled>Recalculate with current rain ↗</button></div><div class="weather-disclaimer">Open-Meteo data (CC BY 4.0): current conditions are model estimates, not rain-gauge readings. No live drain or flood-sensor data is available for this location.</div></div>
+            <div class="detail-columns"><div><div class="section-label">READING BREAKDOWN</div><div class="reading-list" id="reading-list"><span class="empty-note">Assessment details appear here.</span></div></div><div><div class="section-label">RECOMMENDED ACTIONS</div><ul class="action-list" id="action-list"><li class="empty-note">Select a site to view recommendations.</li></ul></div></div>
+            <div class="factor-strip"><div class="section-label">WHY THIS SCORE</div><ul id="factor-list"><li class="empty-note">Risk factors appear here.</li></ul></div>
+            <div class="detail-actions"><button class="button button-light" id="assess-button" disabled>↻ Reassess location</button><span class="timestamp" id="assessment-time"></span></div>
+          </article>
+        </section>
+
+        <section class="panel simulator-panel" id="simulator">
+          <div class="panel-heading"><div><div class="eyebrow muted">WHAT-IF ANALYSIS <span class="sim-mark">↗</span></div><h2>Scenario simulator</h2><p class="panel-description">Explore how rainfall and blockage changes affect the heuristic score. Your baseline reading stays unchanged.</p></div><div class="sim-baseline-tag"><span>BASELINE</span><b id="sim-baseline-site">Select a site above</b></div></div>
+          <div class="simulator-body">
+            <div class="sim-inputs">
+              <div class="input-heading"><span>SCENARIO NAME</span><select id="scenario-select" aria-label="Load a preset scenario"><option value="">Start with selected site</option></select></div>
+              <label class="field-label" for="scenario-name">Comparison label</label><input class="text-input" id="scenario-name" type="text" value="What-if scenario" maxlength="80">
+              <div class="slider-field"><div class="slider-title"><label for="rain-slider">Rainfall intensity</label><output id="rain-output">0 mm/h</output></div><input id="rain-slider" type="range" min="0" max="100" value="0"><div class="range-endpoints"><span>0 mm/h</span><span>100 mm/h</span></div></div>
+              <div class="slider-field"><div class="slider-title"><label for="blockage-slider">Drain blockage</label><output id="blockage-output">0%</output></div><input id="blockage-slider" type="range" min="0" max="100" value="0"><div class="range-endpoints"><span>Clear</span><span>Fully blocked</span></div></div>
+              <button class="button button-teal" id="simulate-button" disabled>Compare scenario <span>→</span></button>
+            </div>
+            <div class="sim-results" id="sim-results"><div class="sim-placeholder"><span class="placeholder-icon">↗</span><h3>Compare a scenario</h3><p>Choose a site, adjust rainfall or blockage, then run the comparison to see how the score changes.</p></div></div>
+          </div>
+          <div class="sim-caveat"><span>i</span> This comparison applies the prototype scoring rules to simulated inputs. It is not a flood forecast.</div>
+        </section>
+
+        <section class="bottom-grid">
+          <article class="panel history-panel" id="history"><div class="panel-heading"><div><div class="eyebrow muted">RECENT ACTIVITY</div><h2>Assessment history</h2></div><button class="text-button" id="history-refresh">Refresh <span>↻</span></button></div><div class="history-list" id="history-list"><div class="loading-row">Loading recent assessments…</div></div></article>
+          <article class="panel scope-panel"><div class="eyebrow muted">DATA & MODEL BOUNDARIES</div><h2>Prototype indicators</h2><div class="scope-item"><span class="scope-icon teal-icon">◉</span><div><b>Drainage risk</b><p>Weighted rule set: water level 35%, blockage 25%, rainfall 20%, flow drop 20%.</p></div></div><div class="scope-item"><span class="scope-icon violet-icon">⌁</span><div><b>Satellite classifier</b><p>Separate research workstream. No Floodora model has been trained or evaluated yet.</p></div></div><div class="scope-note">Scores are uncalibrated indicators. They do not replace official warnings, hydrological models, or human review.</div></article>
+        </section>
+        <footer class="page-footer"><span>FLOODORA · HACKATHON MVP</span><span>For decision support with human review</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
