@@ -64,7 +64,7 @@ curl -X POST http://localhost:8000/api/assess \
 
 ## Deploy the complete app to Vercel
 
-This project deploys as one FastAPI app that serves the dashboard, API, and static assets. `pyproject.toml` points Vercel to `backend.main:app`; `.python-version` selects Python 3.12 to match the Docker image. Vercel supports FastAPI and static files mounted with Starlette's `StaticFiles`.
+This project deploys as one FastAPI app that serves the dashboard, API, and static assets. The root `main.py` entrypoint loads `backend.main:app` for Vercel; `pyproject.toml` points Vercel to `main:app`. `.python-version` selects Python 3.12 to match the Docker image. Vercel supports FastAPI and static files mounted with Starlette's `StaticFiles`.
 
 1. Push the repository, including `pyproject.toml` and `.python-version`, to GitHub.
 2. In Vercel, choose **Add New → Project** and import `crypticlumen/Floodora-prototype`.
