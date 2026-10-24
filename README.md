@@ -115,4 +115,3 @@ Dockerfile     Container image
 compose.yaml   Local container setup
 ```
 
-Prototype deployment needs a public hosting provider, local field validation, durable storage, authentication, monitoring, and operational review before real-world use. The app and its weather feed are not yet deployed to a public URL. Do not commit credentials, personal data, or virtual environments.
