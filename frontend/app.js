@@ -7,13 +7,26 @@ function escapeHtml(value) {
 }
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API}${path}`, { headers: { 'Content-Type': 'application/json', ...(options.headers || {}) }, ...options });
-  if (!response.ok) {
-    let message = `Request failed (${response.status})`;
-    try { const body = await response.json(); message = body.detail || message; } catch { /* Keep the HTTP status message. */ }
-    throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(`${API}${path}`, {
+      headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+      signal: controller.signal,
+      ...options,
+    });
+    if (!response.ok) {
+      let message = `Request failed (${response.status})`;
+      try { const body = await response.json(); message = body.detail || message; } catch { /* Keep the HTTP status message. */ }
+      throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
+    }
+    return await response.json();
+  } catch (error) {
+    if (error.name === 'AbortError') throw new Error('The server took too long to respond. Please try again.');
+    throw error;
+  } finally {
+    clearTimeout(timeout);
   }
-  return response.json();
 }
 
 function notify(message) {
@@ -450,6 +463,7 @@ async function loadPlaceWeather(place, button) {
   $('city-weather-result').innerHTML = '<div class="city-weather-card">Loading weather estimate…</div>';
   try {
     const weather = await request(`/weather/current?latitude=${encodeURIComponent(place.latitude)}&longitude=${encodeURIComponent(place.longitude)}`);
+    $('city-weather-result').innerHTML = '';
     const location = activateSearchLocation(place, weather);
     await loadSensorData(location);
     notify(`Dashboard updated with current weather for ${place.name}.`);
