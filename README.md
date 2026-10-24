@@ -62,15 +62,6 @@ curl -X POST http://localhost:8000/api/assess \
   -d '{"water_level_cm":75,"capacity_cm":120,"rainfall_mm_h":38,"blockage_pct":40,"flow_drop_pct":25,"data_mode":"simulated"}'
 ```
 
-## Deploy the complete app to Vercel
-
-This project deploys as one FastAPI app that serves the dashboard, API, and static assets. The root `main.py` entrypoint loads `backend.main:app` for Vercel; `pyproject.toml` points Vercel to `main:app`. `.python-version` selects Python 3.12 to match the Docker image. Vercel supports FastAPI and static files mounted with Starlette's `StaticFiles`.
-
-1. Push the repository, including `pyproject.toml` and `.python-version`, to GitHub.
-2. In Vercel, choose **Add New → Project** and import `crypticlumen/Floodora-prototype`.
-3. Keep the project root at the repository root. Leave the build command and output directory unset so Vercel detects the Python app and installs `requirements.txt`.
-4. Add any configured sensor variables from `.env.example` under **Project Settings → Environment Variables**. Do not upload `.env` or put a sensor token in frontend code. Leave sensor settings unset if no real sensor provider and device mapping are available.
-5. Deploy. Open the deployment URL for the dashboard; append `/api/health` to check the backend and `/docs` for the API schema.
 
 ## Risk method and data boundaries
 
