@@ -54,8 +54,25 @@ function setConnection(connected, label = connected ? 'API connected' : 'API una
   $('connection-label').textContent = label;
 }
 
+function applyTheme(theme) {
+  const dark = theme === 'dark';
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  const toggle = $('theme-toggle');
+  if (toggle) {
+    const nextLabel = dark ? 'Switch to light theme' : 'Switch to dark theme';
+    toggle.textContent = dark ? '☀' : '☾';
+    toggle.setAttribute('aria-label', nextLabel);
+    toggle.title = nextLabel;
+    toggle.setAttribute('aria-pressed', String(dark));
+  }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#111a17' : '#102624');
+  try { localStorage.setItem('floodora-theme', dark ? 'dark' : 'light'); } catch { /* The theme still applies for this page view. */ }
+}
+
 async function init() {
   document.body.classList.add('weather-only');
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  $('theme-toggle').addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
   $('run-all-button').disabled = true;
   $('today-label').textContent = new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
   $('engine-status').textContent = 'WAITING';

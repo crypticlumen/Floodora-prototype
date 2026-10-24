@@ -20,3 +20,74 @@
 @media(max-width:900px){.drain-reading-form{grid-template-columns:repeat(2,minmax(0,1fr))}.drain-reading-form .button{grid-column:span 2}}
 @media(max-width:700px){.drain-inputs{margin-right:14px;margin-left:14px}.drain-reading-form{grid-template-columns:1fr 1fr}.drain-reading-form .button{grid-column:span 2}}
 .sensor-feed-status{margin:0 0 8px;padding:8px 9px;border:1px solid #e6ede7;border-radius:5px;background:#fff;color:#527465;font-size:9px;line-height:1.45}.weather-only .sensor-feed-status{display:none}
+
+/* Dark theme: shared surface and text overrides for the entire dashboard. */
+html[data-theme="dark"]{color-scheme:dark;--ink:#e5eee9;--muted:#a2b0a9;--line:#34443d;--paper:#111916;--white:#1b2521;--forest:#0e211b;--teal:#48a88b;--teal-light:#203b32;--amber:#d4a14b;--amber-light:#3a3020;--red:#df786c;--red-light:#3c2825;--green:#55b58e;--shadow:0 6px 24px rgba(0,0,0,.2);--surface-soft:#202c27;--surface-raised:#25332d;--border-soft:#2d3d35;--text-muted:#a2b0a9}
+html[data-theme="dark"] body{background:var(--paper);color:var(--ink)}
+html[data-theme="dark"] .sidebar{background:#0d1714;color:#e5eee9}
+html[data-theme="dark"] .brand{color:#f2f7f4}
+html[data-theme="dark"] .brand-mark{background:#64b99b;color:#102a26}
+html[data-theme="dark"] .nav-link{color:#a9beb7}
+html[data-theme="dark"] .nav-link:hover,html[data-theme="dark"] .nav-link.active{background:#1c3931;color:#f4faf6}
+html[data-theme="dark"] .boundary-card{background:#182b24;border-color:#2c493d}
+html[data-theme="dark"] .api-link{border-color:#2a3d34;color:#b7c9c0}
+html[data-theme="dark"] .topbar{background:rgba(21,30,26,.94);border-color:var(--line)}
+html[data-theme="dark"] .breadcrumb,html[data-theme="dark"] .connection,html[data-theme="dark"] .date-label{color:#a9b8b0}
+html[data-theme="dark"] .breadcrumb b{color:#e2ece6}
+html[data-theme="dark"] .breadcrumb span,html[data-theme="dark"] .top-divider{color:#64746c;background:#38473f}
+html[data-theme="dark"] .icon-button,html[data-theme="dark"] .weather-refresh{background:#202c27;border-color:#3a4a42;color:#c0d1c8}
+html[data-theme="dark"] .icon-button:hover,html[data-theme="dark"] .weather-refresh:hover{background:#293a32;border-color:#527363}
+html[data-theme="dark"] .summary-card,html[data-theme="dark"] .panel{background:var(--white);border-color:var(--line);box-shadow:var(--shadow)}
+html[data-theme="dark"] .summary-top,html[data-theme="dark"] .summary-foot,html[data-theme="dark"] .summary-value small,html[data-theme="dark"] .panel-description,html[data-theme="dark"] .detail-subtitle,html[data-theme="dark"] .weather-source,html[data-theme="dark"] .weather-card-foot,html[data-theme="dark"] .timestamp,html[data-theme="dark"] .page-footer{color:var(--text-muted)}
+html[data-theme="dark"] .eyebrow,html[data-theme="dark"] .muted{color:#92b9a8}
+html[data-theme="dark"] .data-badge{background:#203a31;border-color:#315548;color:#a9d5c1}
+html[data-theme="dark"] .small-live{color:#93c9b0}
+html[data-theme="dark"] .summary-icon{background:#20382f;color:#8ed0b1}
+html[data-theme="dark"] .summary-icon.amber{background:#3a3020;color:#e1b66c}
+html[data-theme="dark"] .summary-icon.teal{background:#20383a;color:#83c6be}
+html[data-theme="dark"] .summary-icon.green{background:#203a2f;color:#83d0aa}
+html[data-theme="dark"] .sites-table th{background:#202a26;color:#a5b2ac;border-color:#33423b}
+html[data-theme="dark"] .sites-table td{color:#becbc4;border-color:#303e37}
+html[data-theme="dark"] .site-name,html[data-theme="dark"] .score-number,html[data-theme="dark"] .reading-row b,html[data-theme="dark"] .sim-baseline-tag b,html[data-theme="dark"] .result-title,html[data-theme="dark"] .compare-score strong,html[data-theme="dark"] .scope-panel h2{color:#e2ece6}
+html[data-theme="dark"] .site-pin{background:#263b32;color:#a6d3bd}
+html[data-theme="dark"] .site-ward,html[data-theme="dark"] .cell-value,html[data-theme="dark"] .panel-foot,html[data-theme="dark"] .score-caption,html[data-theme="dark"] .risk-label-wrap p,html[data-theme="dark"] .reading-row,html[data-theme="dark"] .action-list li,html[data-theme="dark"] .empty-note,html[data-theme="dark"] .sim-baseline-tag span,html[data-theme="dark"] .sim-placeholder p,html[data-theme="dark"] .result-summary,html[data-theme="dark"] .history-main span,html[data-theme="dark"] .history-empty,html[data-theme="dark"] .scope-item p,html[data-theme="dark"] .scope-note,html[data-theme="dark"] .loading-row{color:#a5b3ac!important}
+html[data-theme="dark"] .site-row:hover,html[data-theme="dark"] .site-row.selected{background:#24342c}
+html[data-theme="dark"] .site-row.selected td:first-child{box-shadow:inset 2px 0 #68b99a}
+html[data-theme="dark"] .risk-overview,html[data-theme="dark"] .drain-inputs,html[data-theme="dark"] .sim-inputs,html[data-theme="dark"] .city-weather-card,html[data-theme="dark"] .city-weather-grid div,html[data-theme="dark"] .compare-score,html[data-theme="dark"] .component-deltas div{background:var(--surface-soft);border-color:var(--border-soft)}
+html[data-theme="dark"] .risk-label-wrap{border-color:#3a4942}
+html[data-theme="dark"] .risk-low{color:#8ed0ad;background:#1e3a2c}
+html[data-theme="dark"] .risk-medium{color:#e3c276;background:#3b3320}
+html[data-theme="dark"] .risk-high{color:#e7a66c;background:#3d2d20}
+html[data-theme="dark"] .risk-critical{color:#ee958b;background:#422724}
+html[data-theme="dark"] .risk-unknown,html[data-theme="dark"] .delta-badge.neutral{color:#b2c0b9;background:#303b35}
+html[data-theme="dark"] .risk-meter .meter-fill{background:#27342e}
+html[data-theme="dark"] .factor-strip,html[data-theme="dark"] .history-row,html[data-theme="dark"] .sim-caveat{border-color:#33423a}
+html[data-theme="dark"] .factor-chip{background:#28372f;color:#b1c4b8}
+html[data-theme="dark"] .button-light{background:#263a31;border-color:#365346;color:#b4d9c8}
+html[data-theme="dark"] .input-heading,html[data-theme="dark"] .field-label,html[data-theme="dark"] .slider-title,html[data-theme="dark"] .drain-reading-form label,html[data-theme="dark"] .drain-input-note,html[data-theme="dark"] .drain-reading-status{color:#a6b5ad}
+html[data-theme="dark"] .text-input,html[data-theme="dark"] .input-heading select{background:#151f1b;border-color:#3a4a41;color:#e2ece6}
+html[data-theme="dark"] .text-input::placeholder{color:#82948a}
+html[data-theme="dark"] .text-input:focus,html[data-theme="dark"] .input-heading select:focus{border-color:#68b99a;box-shadow:0 0 0 2px rgba(104,185,154,.2)}
+html[data-theme="dark"] .place-result{background:#202e27;border-color:#35483e;color:#c6d8ce}
+html[data-theme="dark"] .place-result:hover{background:#293b32;border-color:#527363}
+html[data-theme="dark"] .place-result span{color:#9eafa5}
+html[data-theme="dark"] .city-weather-card,html[data-theme="dark"] .weather-card{background:linear-gradient(110deg,#1c2b24,#202b26);border-color:#35463c}
+html[data-theme="dark"] .city-weather-title,html[data-theme="dark"] .weather-condition{color:#d4e5db}
+html[data-theme="dark"] .city-weather-grid div,html[data-theme="dark"] .weather-metrics>div{background:#202d27;border-color:#33433a}
+html[data-theme="dark"] .city-weather-grid span,html[data-theme="dark"] .weather-metrics span,html[data-theme="dark"] .city-weather-foot,html[data-theme="dark"] .weather-disclaimer{color:#a0b0a6}
+html[data-theme="dark"] .city-weather-grid b,html[data-theme="dark"] .weather-metrics b{color:#dce9e2}
+html[data-theme="dark"] .weather-live-pill{background:#203a30;color:#a8d8c1}
+html[data-theme="dark"] .weather-live-pill.stale,html[data-theme="dark"] .data-badge.weather-stale{background:#3a3221;border-color:#59492a;color:#e1c27d}
+html[data-theme="dark"] .sim-results{background:linear-gradient(135deg,#1a2520,#202c26);border-color:#35443c}
+html[data-theme="dark"] .sim-placeholder h3{color:#d2e1d8}
+html[data-theme="dark"] .placeholder-icon,html[data-theme="dark"] .sim-caveat>span{background:#263a30;color:#a1d4b8}
+html[data-theme="dark"] .compare-score,html[data-theme="dark"] .component-deltas div{background:#202c27}
+html[data-theme="dark"] .compare-score small,html[data-theme="dark"] .component-deltas span{color:#a2b1a8}
+html[data-theme="dark"] .component-deltas b{color:#c1d9ca}
+html[data-theme="dark"] .delta-badge{background:#203a2e;color:#a6d9bb}
+html[data-theme="dark"] .delta-badge.negative{background:#3d2b22;color:#e4a879}
+html[data-theme="dark"] .scope-item b{color:#d3e2d9}
+html[data-theme="dark"] .scope-note{background:#202b25;border-color:#69a78b}
+html[data-theme="dark"] .sensor-feed-status{background:#202d27;border-color:#384a40;color:#b7d2c3}
+html[data-theme="dark"] .toast{background:#285447;color:#f2faf5}
+html[data-theme="dark"] :focus-visible{outline:2px solid #76cbaa;outline-offset:2px}

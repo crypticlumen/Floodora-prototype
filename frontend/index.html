@@ -6,6 +6,11 @@
   <meta name="theme-color" content="#102624">
   <meta name="description" content="Floodora smart drainage monitoring and early flood-risk awareness prototype.">
   <title>Floodora | India live weather</title>
+  <script>
+    try {
+      if (localStorage.getItem('floodora-theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+    } catch { /* Keep the default light theme when storage is unavailable. */ }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +36,7 @@
     </aside>
 
     <main class="main-content">
-      <header class="topbar"><div class="breadcrumb">Floodora <span>/</span> <b>India weather</b></div><div class="topbar-right"><span class="connection"><i id="connection-dot"></i><span id="connection-label">Connecting</span></span><span class="top-divider"></span><span class="date-label" id="today-label"></span><button class="icon-button" id="refresh-button" aria-label="Refresh data" title="Refresh data">↻</button></div></header>
+      <header class="topbar"><div class="breadcrumb">Floodora <span>/</span> <b>India weather</b></div><div class="topbar-right"><span class="connection"><i id="connection-dot"></i><span id="connection-label">Connecting</span></span><span class="top-divider"></span><span class="date-label" id="today-label"></span><button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch to dark theme">☾</button><button class="icon-button" id="refresh-button" aria-label="Refresh data" title="Refresh data">↻</button></div></header>
       <div class="page-wrap">
         <section class="intro" id="overview">
           <div><div class="eyebrow"><span class="eyebrow-mark">◉</span> <span id="network-context">INDIA · LIVE WEATHER</span></div><h1 id="dashboard-title">Local weather dashboard</h1><p class="intro-copy" id="dashboard-description">Enter an Indian PIN code, city, or district to load current local weather.</p></div>
